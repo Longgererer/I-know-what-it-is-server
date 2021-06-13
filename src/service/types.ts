@@ -49,8 +49,14 @@ type GameMapT = {
   }
 }
 
+type customObjT = {
+  [key: string]: any
+}
+
+
 export {
   WsConnector,
   WsType,
-  GameMapT
+  GameMapT,
+  customObjT
 }
