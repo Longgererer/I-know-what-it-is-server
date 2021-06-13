@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const tools_1 = require("./tools");
 const sender_1 = __importDefault(require("./sender"));
+const messageDispacher_1 = __importDefault(require("./messageDispacher"));
 class Connector {
     constructor(ws, gameMap) {
         // 初始化玩家信息包括id，token，username，avatarUrl，currentRoomId
@@ -40,16 +41,21 @@ class Connector {
         this.ws.on('message', (msg) => {
             console.log(msg);
             this.send({ test: 123 }, '');
-            // try {
-            //   this.lastLoginTime = new Date().getTime()
-            //   const processedMsg = JSON.parse(msg)
-            // } catch (err) {
-            // }
+            this.lastLoginTime = new Date().getTime();
+            const { type, content } = JSON.parse(msg);
+            messageDispacher_1.default(type)(content);
         });
         this.ws.on('error', (e) => {
             console.log(e);
             this.send(e, '');
         });
+    }
+    typeHandler(type, content) {
+        switch (type) {
+            case 'createRoom': {
+                // 创建房间
+            }
+        }
     }
 }
 exports.default = Connector;

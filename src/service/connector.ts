@@ -1,6 +1,7 @@
-import { WsConnector, WsType, GameMapT } from './types'
+import { WsConnector, WsType, GameMapT, customObjT } from './types'
 import { getRandomString, getRandomToken, queryKeyExist } from './tools'
 import sender from './sender'
+import dispatcher from './messageDispacher'
 
 export default class Connector implements WsConnector {
   token: string
@@ -47,20 +48,21 @@ export default class Connector implements WsConnector {
     this.ws.on('message', (msg: string) => {
       console.log(msg)
       this.send({ test: 123 }, '')
-      // try {
-      //   this.lastLoginTime = new Date().getTime()
-      //   const processedMsg = JSON.parse(msg)
-
-      // } catch (err) {
-
-      // }
+      this.lastLoginTime = new Date().getTime()
+      const { type, content } = JSON.parse(msg)
+      dispatcher(type)(content)
     })
     this.ws.on('error', (e) => {
       console.log(e)
       this.send(e, '')
     })
   }
-  // buildContext(processedMsg: any, gameMap: GameMapT, user): void {
+  typeHandler(type: string, content: customObjT) {
+    switch (type) {
+      case 'createRoom': {
+        // 创建房间
 
-  // }
+      }
+    }
+  }
 }
