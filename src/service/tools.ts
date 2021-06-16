@@ -1,7 +1,7 @@
 import cryptoRandomString from 'crypto-random-string'
 import { v4 as uuidv4 } from 'uuid'
 
-const getRandomString = (length: number): string => cryptoRandomString({ length })
+const getRandomString = (length: number = 10): string => cryptoRandomString({ length })
 
 const getRandomToken = (): string => uuidv4()
 
