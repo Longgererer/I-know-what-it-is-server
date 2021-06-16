@@ -9,7 +9,8 @@ interface WsConnector {
   currentRoomId: string,
   isOnline: boolean,
   lastLoginTime: number,
-  ws: WsType
+  ws: WsType,
+  gameMap: GameMapT
 }
 
 type UserT = {
@@ -39,12 +40,15 @@ type RoomUserT = {
 
 type GameMapT = {
   userMap: {
+    // 键名为用户id
     [key: string]: UserT
   },
   roomMap: {
+    // 键名为房间id
     [key: string]: RoomT
   },
   roomUserMap: {
+    // 键名为房间id
     [key: string]: RoomUserT
   }
 }
@@ -58,5 +62,8 @@ export {
   WsConnector,
   WsType,
   GameMapT,
-  customObjT
+  customObjT,
+  UserT,
+  RoomT,
+  RoomUserT
 }
